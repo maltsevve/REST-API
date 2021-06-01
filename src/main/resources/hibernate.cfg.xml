@@ -5,17 +5,17 @@
 <hibernate-configuration>
     <session-factory>
         <!-- Database connection settings -->
-        <property name="connection.url">jdbc:postgresql://localhost:5432/postgres</property>
-        <property name="connection.driver_class">org.postgresql.Driver</property>
-        <property name="connection.username">postgres</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/mysqldemo</property>
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.username">mysql</property>
         <property name="connection.password">q1w2e3r4</property>
         <!-- SQL dialect -->
-        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <!-- JDBC connection pool-->
         <property name="hibernate.connection.pool_size">1</property>
         <!--        Mapping classes-->
-        <mapping class="com.maltsevve.crud4.model.Region"/>
-        <mapping class="com.maltsevve.crud4.model.Post"/>
-        <mapping class="com.maltsevve.crud4.model.User"/>
+        <mapping class="com.maltsevve.restApi.model.User"/>
+        <mapping class="com.maltsevve.restApi.model.File"/>
+        <mapping class="com.maltsevve.restApi.model.Event"/>
     </session-factory>
 </hibernate-configuration>

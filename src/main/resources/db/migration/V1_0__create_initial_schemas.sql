@@ -1,25 +1,20 @@
-CREATE TABLE IF NOT EXISTS regions
-(
-    RegionID serial NOT NULL PRIMARY KEY,
-    Region   varchar(255) UNIQUE
-);
-
 CREATE TABLE IF NOT EXISTS users
 (
-    UserID serial NOT NULL PRIMARY KEY,
-    FirstName varchar(255) NOT NULL,
-    LastName varchar(255) NOT NULL,
-    RegionID int NOT NULL,
-    Role varchar(50)
+    UserId int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    Name varchar(255) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS posts
+CREATE TABLE IF NOT EXISTS files
 (
-    PostID serial NOT NULL PRIMARY KEY,
-    Content varchar(255) NOT NULL,
-    Created timestamp NOT NULL,
-    Updated timestamp,
-    UserId int,
+    FileId int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    FileName varchar(255)
+);
+
+CREATE TABLE IF NOT EXISTS events
+(
+    EventId int AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    EventTime timestamp NOT NULL,
+    FileId int NOT NULL,
+    UserId int NOT NULL,
     FOREIGN KEY (UserId) REFERENCES users(UserID)
 )
-
