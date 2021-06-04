@@ -16,5 +16,6 @@ CREATE TABLE IF NOT EXISTS events
     EventTime timestamp NOT NULL,
     FileId int NOT NULL,
     UserId int NOT NULL,
+    Status varchar(255) NOT NULL,
     FOREIGN KEY (UserId) REFERENCES users(UserID)
 )

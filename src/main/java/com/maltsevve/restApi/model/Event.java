@@ -27,4 +27,6 @@ public class Event {
     @OneToOne
     @JoinColumn(name = "FileId")
     private File file;
+    @Column(name = "Status")
+    Status status;
 }

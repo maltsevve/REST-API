@@ -1,0 +1,251 @@
+{
+	"info": {
+		"_postman_id": "28b454e7-1c72-4b28-b496-71b54066f622",
+		"name": "rest api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "files",
+			"item": [
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/files?crud=getById&fileId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"files"
+							],
+							"query": [
+								{
+									"key": "crud",
+									"value": "getById"
+								},
+								{
+									"key": "fileId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/files?crud=getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"files"
+							],
+							"query": [
+								{
+									"key": "crud",
+									"value": "getAll"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/files?crud=delete&fileId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"files"
+							],
+							"query": [
+								{
+									"key": "crud",
+									"value": "delete"
+								},
+								{
+									"key": "fileId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "getById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/users?crud=getById&userId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "crud",
+									"value": "getById"
+								},
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/users?crud=getAll",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "crud",
+									"value": "getAll"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/users?crud=delete&userId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "crud",
+									"value": "delete"
+								},
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/users?crud=save&name=John Doe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "crud",
+									"value": "save"
+								},
+								{
+									"key": "name",
+									"value": "John Doe"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8088/users?crud=update&userId=1&name=Jane Doe",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8088",
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "crud",
+									"value": "update"
+								},
+								{
+									"key": "userId",
+									"value": "1"
+								},
+								{
+									"key": "name",
+									"value": "Jane Doe"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "events",
+			"item": []
+		}
+	]
+}

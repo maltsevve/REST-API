@@ -6,26 +6,20 @@
   <display-name>REST-API</display-name>
 
   <servlet>
-    <servlet-name>EventController</servlet-name>
-    <servlet-class>com.maltsevve.restApi.controller.EventController</servlet-class>
-  </servlet>
-  <servlet>
     <servlet-name>FileController</servlet-name>
     <servlet-class>com.maltsevve.restApi.controller.FileController</servlet-class>
   </servlet>
+  
   <servlet>
     <servlet-name>UserController</servlet-name>
     <servlet-class>com.maltsevve.restApi.controller.UserController</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>EventController</servlet-name>
-    <url-pattern>/events</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
     <servlet-name>FileController</servlet-name>
     <url-pattern>/files</url-pattern>
   </servlet-mapping>
+
   <servlet-mapping>
     <servlet-name>UserController</servlet-name>
     <url-pattern>/users</url-pattern>
