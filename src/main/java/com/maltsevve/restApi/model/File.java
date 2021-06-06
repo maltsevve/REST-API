@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "files")
@@ -20,4 +21,17 @@ public class File {
     private Long id;
     @Column(name = "FileName")
     private String fileName;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        File file = (File) o;
+        return id.equals(file.id) && fileName.equals(file.fileName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, fileName);
+    }
 }

@@ -15,6 +15,16 @@
     <servlet-class>com.maltsevve.restApi.controller.UserController</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>EventController</servlet-name>
+    <servlet-class>com.maltsevve.restApi.controller.EventController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>EventController</servlet-name>
+    <url-pattern>/events</url-pattern>
+  </servlet-mapping>
+
   <servlet-mapping>
     <servlet-name>FileController</servlet-name>
     <url-pattern>/files</url-pattern>

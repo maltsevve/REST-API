@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,7 @@ public class JavaIOEventRepositoryImpl implements EventRepository {
         try {
             session = HibernateSessionFactory.getSessionFactory().openSession();
             transaction = session.beginTransaction();
+            event.setEventTime(new Date());
             session.save(event);
             transaction.commit();
         } catch (Exception e) {
@@ -44,6 +46,7 @@ public class JavaIOEventRepositoryImpl implements EventRepository {
         try {
             session = HibernateSessionFactory.getSessionFactory().openSession();
             transaction = session.beginTransaction();
+            event.setEventTime(new Date());
             session.update(event);
             transaction.commit();
         } catch (Exception e) {

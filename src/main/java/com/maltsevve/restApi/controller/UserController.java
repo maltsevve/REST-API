@@ -43,12 +43,15 @@ public class UserController extends HttpServlet {
 
         writer.println(DOC_TYPE + "<html><head><title>" + TITLE + "</title></head><body>");
 
-        User user = new User();
-        user.setName(req.getParameter("name"));
-        userService.save(user);
+        if (req.getParameter("name") != null) {
+            User user = new User();
+            user.setName(req.getParameter("name"));
+            userService.save(user);
 
-        writer.println("User " + user.getName() + " successfully saved.<br/>");
-
+            writer.println("User " + user.getName() + " successfully saved.<br/>");
+        } else {
+            writer.println("Set username parameter.<br/>");
+        }
         writer.println("</body></html>");
     }
 
@@ -67,6 +70,8 @@ public class UserController extends HttpServlet {
             userService.update(user);
 
             writer.println("User with ID " + id + " updated. New user name: " + user.getName() + "<br/>");
+        } else {
+            writer.println("Set correct user ID.<br/>");
         }
 
         writer.println("</body></html>");
@@ -81,25 +86,28 @@ public class UserController extends HttpServlet {
 
         if (req.getParameter("userId") != null && req.getParameter("userId").matches("\\d+")) {
             User user = userService.getById(Long.valueOf(req.getParameter("userId")));
+
             writer.println("ID: " + user.getId());
-            writer.println("User name: " + user.getName() + "<br/>");
+            writer.println(" User name: " + user.getName() + "<br/>");
 
             for (Event event : user.getEvents()) {
-                writer.println("ID " + event.getId());
+                writer.println("Event ID: " + event.getId());
                 writer.println(" Event time: " + event.getEventTime());
-                writer.println(" Saved file name: " + event.getFile() + "<br/>");
+                writer.println(" Event status: " + event.getStatus());
+                writer.println(" File name: " + event.getFile() + "<br/>");
             }
-        } else {
+        } else if (req.getParameter("crud").equals("getAll")){
             List<User> users = userService.getAll();
 
             for (User user : users) {
-                writer.println("ID " + user.getId() + " ");
-                writer.println("File name: " + user.getName() + "<br/>");
+                writer.println("ID: " + user.getId() + " ");
+                writer.println(" User name: " + user.getName() + "<br/>");
 
                 for (Event event : user.getEvents()) {
-                    writer.println("ID " + event.getId());
+                    writer.println("Event ID " + event.getId());
                     writer.println(" Event time: " + event.getEventTime());
-                    writer.println(" Saved file name: " + event.getFile() + "<br/>");
+                    writer.println(" Event status: " + event.getStatus());
+                    writer.println(" File name: " + event.getFile() + "<br/>");
                 }
             }
         }
@@ -117,6 +125,7 @@ public class UserController extends HttpServlet {
         if (req.getParameter("userId") != null && req.getParameter("userId").matches("\\d+")) {
             Long id = Long.parseLong(req.getParameter("userId"));
             userService.deleteById(id);
+
             if (userService.getById(id) == null) {
                 writer.println("User with ID " + id + " successfully deleted.<br/>");
             } else {
