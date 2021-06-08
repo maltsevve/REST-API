@@ -94,7 +94,7 @@ public class UserController extends HttpServlet {
                 writer.println("Event ID: " + event.getId());
                 writer.println(" Event time: " + event.getEventTime());
                 writer.println(" Event status: " + event.getStatus());
-                writer.println(" File name: " + event.getFile() + "<br/>");
+                writer.println(" File name: " + event.getFile().getFileName() + "<br/>");
             }
         } else if (req.getParameter("crud").equals("getAll")){
             List<User> users = userService.getAll();
@@ -107,7 +107,7 @@ public class UserController extends HttpServlet {
                     writer.println("Event ID " + event.getId());
                     writer.println(" Event time: " + event.getEventTime());
                     writer.println(" Event status: " + event.getStatus());
-                    writer.println(" File name: " + event.getFile() + "<br/>");
+                    writer.println(" File name: " + event.getFile().getFileName() + "<br/>");
                 }
             }
         }

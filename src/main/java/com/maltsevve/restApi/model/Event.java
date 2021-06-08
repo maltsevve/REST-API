@@ -21,12 +21,12 @@ public class Event {
     private Long id;
     @Column(name = "EventTime")
     private Date eventTime;
+    @Column(name = "Status")
+    Status status;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UserId")
     private User user;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "FileId")
     private File file;
-    @Column(name = "Status")
-    Status status;
 }

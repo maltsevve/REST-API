@@ -35,23 +35,23 @@ public class EventController extends HttpServlet {
 
         if (req.getParameter("eventId") != null && req.getParameter("eventId").matches("\\d+")) {
             Event event = eventService.getById(Long.valueOf(req.getParameter("eventId")));
-            writer.println("ID: " + event.getId());
-            writer.println(" Event: " + event.getStatus());
-            writer.println(" User: " + event.getUser());
-            writer.println(" File: " + event.getFile());
-            writer.println(" Time: " + event.getEventTime() + "<br/>");
+            printEvent(writer, event);
         } else {
             List<Event> events = eventService.getAll();
 
             for (Event event : events) {
-                writer.println("ID: " + event.getId());
-                writer.println(" Event: " + event.getStatus());
-                writer.println(" User: " + event.getUser());
-                writer.println(" File: " + event.getFile());
-                writer.println(" Time: " + event.getEventTime() + "<br/>");
+                printEvent(writer, event);
             }
         }
 
         writer.println("</body></html>");
+    }
+
+    private void printEvent(PrintWriter writer, Event event) {
+        writer.println("Event ID: " + event.getId());
+        writer.println(" Event: " + event.getStatus());
+        writer.println("; User: " + event.getUser().getName() + " with ID: " + event.getUser().getId());
+        writer.println(" File: " + event.getFile());
+        writer.println(" Time: " + event.getEventTime() + "<br/>");
     }
 }

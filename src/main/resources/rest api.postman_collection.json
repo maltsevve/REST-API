@@ -167,9 +167,9 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "",
+									"key": "file1",
 									"type": "file",
-									"src": []
+									"src": "file1.txt"
 								}
 							]
 						},
@@ -235,6 +235,16 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file2",
+									"type": "file",
+									"src": "file2.txt"
+								}
+							]
+						},
 						"url": {
 							"raw": "http://localhost:8088/files?crud=update&fileId=1&fileName=file2&userId=1",
 							"protocol": "http",
