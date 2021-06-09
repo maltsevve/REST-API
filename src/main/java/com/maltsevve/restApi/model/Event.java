@@ -17,16 +17,16 @@ import java.util.Date;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "EventId")
+    @Column(name = "event_id")
     private Long id;
-    @Column(name = "EventTime")
+    @Column(name = "event_time")
     private Date eventTime;
-    @Column(name = "Status")
-    Status status;
+    @Column(name = "status")
+    String status;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "UserId")
+    @JoinColumn(name = "user_id")
     private User user;
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "FileId")
+    @JoinColumn(name = "file_id")
     private File file;
 }

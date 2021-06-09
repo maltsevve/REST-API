@@ -1,6 +1,7 @@
 package com.maltsevve.restApi.controller;
 
 
+import com.google.gson.Gson;
 import com.maltsevve.restApi.model.Event;
 import com.maltsevve.restApi.model.File;
 import com.maltsevve.restApi.model.Status;
@@ -9,6 +10,7 @@ import com.maltsevve.restApi.service.FileService;
 import com.maltsevve.restApi.service.UserService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,42 +20,21 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
+@WebServlet("/api/v1/files")
 public class FileController extends HttpServlet {
+    private final static String SAVE_DIR = "C:/Users/Victor/IdeaProjects/REST-API/src/main/resources/uploads/";
+    private final static int BUFFER_SIZE = 4096;
+
     private final FileService fileService = new FileService();
     private final EventService eventService = new EventService();
     private final UserService userService = new UserService();
 
-    private final static String SAVE_DIR = "C:/Users/Victor/IdeaProjects/REST-API/src/main/resources/uploads/";
-    private final static int BUFFER_SIZE = 4096;
-
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        switch (req.getParameter("crud")) {
-            case "save":
-                doPost(req, resp);
-                break;
-            case "update":
-                doPut(req, resp);
-                break;
-            case "getById":
-            case "getAll":
-                doGet(req, resp);
-                break;
-            case "delete":
-                doDelete(req, resp);
-                break;
-        }
-    }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
         PrintWriter writer = resp.getWriter();
-
-        String title = "Files";
-        String docType = "<!DOCTYPE html>";
-
-        writer.println(docType + "<html><head><title>" + title + "</title></head><body>");
 
         if (req.getParameter("userId") != null && req.getParameter("userId").matches("\\d+")) {
             if (req.getParameter("fileName") != null) {
@@ -64,36 +45,25 @@ public class FileController extends HttpServlet {
 
                 File file = new File();
                 file.setFileName(fileName);
+                fileService.save(file);
 
                 Event event = new Event();
                 event.setFile(file);
-                event.setStatus(Status.SAVED);
+                event.setStatus(Status.SAVED.toString());
                 event.setUser(userService.getById(Long.valueOf(req.getParameter("userId"))));
+                eventService.save(event);
 
-                if (fileService.save(file).equals(file)) {
-                    eventService.save(event);
-                }
-
-                writer.println("File " + fileName + " successfully saved.<br/>");
-            } else {
-                writer.println("Specify the file name.<br/>");
+                writer.print(new Gson().toJson(file));
             }
-        } else {
-            writer.println("Specify the correct user ID.<br/>");
         }
-
-        writer.println("</body></html>");
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
         PrintWriter writer = resp.getWriter();
-
-        String title = "Files";
-        String docType = "<!DOCTYPE html>";
-
-        writer.println(docType + "<html><head><title>" + title + "</title></head><body>");
 
         if (req.getParameter("fileId") != null && req.getParameter("fileId").matches("\\d+")) {
             Long id = Long.parseLong(req.getParameter("fileId"));
@@ -116,63 +86,45 @@ public class FileController extends HttpServlet {
 
                     Event event = new Event();
                     event.setFile(file);
-                    event.setStatus(Status.UPDATED);
+                    event.setStatus(Status.UPDATED.toString());
                     event.setUser(userService.getById(Long.valueOf(req.getParameter("userId"))));
 
                     if (fileService.update(file).equals(file)) {
                         eventService.save(event);
                     }
 
-                    writer.println("FIle with ID " + id + " updated. New file name: " + file.getFileName() + "<br/>");
-                } else {
-                    writer.println("Specify the file name.<br/>");
+                    writer.print(new Gson().toJson(file));
                 }
-            } else {
-                writer.println("Specify the correct user ID.<br/>");
             }
-        } else {
-            writer.println("Specify the correct file ID.<br/>");
         }
-
-        writer.println("</body></html>");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
         PrintWriter writer = resp.getWriter();
-
-        String title = "Files";
-        String docType = "<!DOCTYPE html>";
-
-        writer.println(docType + "<html><head><title>" + title + "</title></head><body>");
 
         if (req.getParameter("fileId") != null && req.getParameter("fileId").matches("\\d+")) {
             File file = fileService.getById(Long.valueOf(req.getParameter("fileId")));
-            writer.println("ID: " + file.getId());
-            writer.println("File name: " + file.getFileName() + "<br/>");
+
+            writer.print(new Gson().toJson(file));
         } else {
             List<File> files = fileService.getAll();
 
             for (File file : files) {
-                writer.println("ID: " + file.getId() + " ");
-                writer.println("File name: " + file.getFileName() + "<br/>");
+                writer.print(new Gson().toJson(file));
             }
         }
-
-        writer.println("</body></html>");
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
         PrintWriter writer = resp.getWriter();
-
-        String title = "Files";
-        String docType = "<!DOCTYPE html>";
-
-        writer.println(docType + "<html><head><title>" + title + "</title></head><body>");
-
         long id;
 
         if (req.getParameter("fileId") != null && req.getParameter("fileId").matches("\\d+")) {
@@ -187,26 +139,15 @@ public class FileController extends HttpServlet {
                 if (!deletingFile.exists()) {
                     Event event = new Event();
                     event.setFile(file);
-                    event.setStatus(Status.DELETED);
+                    event.setStatus(Status.DELETED.toString());
                     event.setUser(userService.getById(Long.valueOf(req.getParameter("userId"))));
 
                     fileService.update(file);
                     eventService.save(event);
-
-                    writer.println("File with ID " + id + " successfully deleted.<br/>");
-                } else {
-                    writer.println("Couldn't delete the file.<br/>");
                 }
-            } else {
-                writer.println("Specify the correct user ID.<br/>");
             }
-        } else {
-            writer.println("No file with such ID in the data base.<br/>");
         }
-
-        writer.println("</body></html>");
     }
-
 
     private void uploadFile(java.io.File file, HttpServletRequest req) {
         try (InputStream inputStream = req.getInputStream();

@@ -17,9 +17,9 @@ import java.util.Objects;
 public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "FileId")
+    @Column(name = "file_id")
     private Long id;
-    @Column(name = "FileName")
+    @Column(name = "filename")
     private String fileName;
 
     @Override

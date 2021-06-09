@@ -20,7 +20,7 @@ public class JavaIOUserRepositoryImpl implements UserRepository {
         Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
@@ -42,7 +42,7 @@ public class JavaIOUserRepositoryImpl implements UserRepository {
         Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
             session.update(user);
             transaction.commit();
@@ -62,15 +62,11 @@ public class JavaIOUserRepositoryImpl implements UserRepository {
     public User getById(Long aLong) {
         User user = null;
         Session session = null;
-        Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
+            session = HibernateSessionFactory.getSession();
             user = session.get(User.class, aLong);
-            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             if (session != null && session.isOpen()) {
@@ -84,17 +80,12 @@ public class JavaIOUserRepositoryImpl implements UserRepository {
     @Override
     public List<User> getAll() {
         List<User> users = new ArrayList<>();
-
         Session session = null;
-        Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
+            session = HibernateSessionFactory.getSession();
             users = (List<User>) session.createQuery("FROM User u LEFT JOIN FETCH u.events").list();
-            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             if (session != null && session.isOpen()) {
@@ -111,7 +102,7 @@ public class JavaIOUserRepositoryImpl implements UserRepository {
         Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
             User user = session.load(User.class, aLong);
             session.delete(user);

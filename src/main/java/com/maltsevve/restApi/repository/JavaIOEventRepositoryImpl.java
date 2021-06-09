@@ -21,7 +21,7 @@ public class JavaIOEventRepositoryImpl implements EventRepository {
         Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
             event.setEventTime(new Date());
             session.save(event);
@@ -44,7 +44,7 @@ public class JavaIOEventRepositoryImpl implements EventRepository {
         Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
             event.setEventTime(new Date());
             session.update(event);
@@ -65,15 +65,11 @@ public class JavaIOEventRepositoryImpl implements EventRepository {
     public Event getById(Long aLong) {
         Event event = null;
         Session session = null;
-        Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
+            session = HibernateSessionFactory.getSession();
             event = session.get(Event.class, aLong);
-            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             if (session != null && session.isOpen()) {
@@ -87,17 +83,12 @@ public class JavaIOEventRepositoryImpl implements EventRepository {
     @Override
     public List<Event> getAll() {
         List<Event> events = new ArrayList<>();
-
         Session session = null;
-        Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
+            session = HibernateSessionFactory.getSession();
             events = (List<Event>) session.createQuery("FROM Event e").list();
-            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             if (session != null && session.isOpen()) {
@@ -114,7 +105,7 @@ public class JavaIOEventRepositoryImpl implements EventRepository {
         Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
             Event event = session.load(Event.class, aLong);
             session.delete(event);

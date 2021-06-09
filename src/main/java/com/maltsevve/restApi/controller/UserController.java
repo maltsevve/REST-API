@@ -1,10 +1,15 @@
 package com.maltsevve.restApi.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.maltsevve.restApi.model.Event;
 import com.maltsevve.restApi.model.User;
 import com.maltsevve.restApi.service.UserService;
+import com.maltsevve.restApi.util.EventSerializer;
+import com.maltsevve.restApi.util.UserSerializer;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,55 +17,32 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+@WebServlet("/api/v1/users")
 public class UserController extends HttpServlet {
     private final UserService userService = new UserService();
-    private final static String TITLE = "Users";
-    private final static String DOC_TYPE = "<!DOCTYPE html>";
-
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        switch (req.getParameter("crud")) {
-            case "save":
-                doPost(req, resp);
-                break;
-            case "update":
-                doPut(req, resp);
-                break;
-            case "getById":
-            case "getAll":
-                doGet(req, resp);
-                break;
-            case "delete":
-                doDelete(req, resp);
-                break;
-        }
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
 
-        writer.println(DOC_TYPE + "<html><head><title>" + TITLE + "</title></head><body>");
+        PrintWriter writer = resp.getWriter();
 
         if (req.getParameter("name") != null) {
             User user = new User();
             user.setName(req.getParameter("name"));
             userService.save(user);
 
-            writer.println("User " + user.getName() + " successfully saved.<br/>");
-        } else {
-            writer.println("Set username parameter.<br/>");
+            writer.print(new Gson().toJson(user));
         }
-        writer.println("</body></html>");
     }
 
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
 
-        writer.println(DOC_TYPE + "<html><head><title>" + TITLE + "</title></head><body>");
+        PrintWriter writer = resp.getWriter();
 
         if (req.getParameter("userId") != null && req.getParameter("userId").matches("\\d+")) {
             Long id = Long.parseLong(req.getParameter("userId"));
@@ -69,72 +51,53 @@ public class UserController extends HttpServlet {
             user.setName(req.getParameter("name"));
             userService.update(user);
 
-            writer.println("User with ID " + id + " updated. New user name: " + user.getName() + "<br/>");
-        } else {
-            writer.println("Set correct user ID.<br/>");
+            writer.print(new Gson().toJson(user));
         }
-
-        writer.println("</body></html>");
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+
         PrintWriter writer = resp.getWriter();
 
-        writer.println(DOC_TYPE + "<html><head><title>" + TITLE + "</title></head><body>");
+        Gson gson = new GsonBuilder().
+                setPrettyPrinting().registerTypeAdapter(User.class, new UserSerializer()).create();
 
         if (req.getParameter("userId") != null && req.getParameter("userId").matches("\\d+")) {
             User user = userService.getById(Long.valueOf(req.getParameter("userId")));
 
-            writer.println("ID: " + user.getId());
-            writer.println(" User name: " + user.getName() + "<br/>");
-
-            for (Event event : user.getEvents()) {
-                writer.println("Event ID: " + event.getId());
-                writer.println(" Event time: " + event.getEventTime());
-                writer.println(" Event status: " + event.getStatus());
-                writer.println(" File name: " + event.getFile().getFileName() + "<br/>");
-            }
-        } else if (req.getParameter("crud").equals("getAll")){
+            sendGson(writer, gson, user);
+        } else {
             List<User> users = userService.getAll();
 
             for (User user : users) {
-                writer.println("ID: " + user.getId() + " ");
-                writer.println(" User name: " + user.getName() + "<br/>");
-
-                for (Event event : user.getEvents()) {
-                    writer.println("Event ID " + event.getId());
-                    writer.println(" Event time: " + event.getEventTime());
-                    writer.println(" Event status: " + event.getStatus());
-                    writer.println(" File name: " + event.getFile().getFileName() + "<br/>");
-                }
+                sendGson(writer, gson, user);
             }
         }
-
-        writer.println("</body></html>");
     }
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
-        PrintWriter writer = resp.getWriter();
-
-        writer.println(DOC_TYPE + "<html><head><title>" + TITLE + "</title></head><body>");
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
 
         if (req.getParameter("userId") != null && req.getParameter("userId").matches("\\d+")) {
             Long id = Long.parseLong(req.getParameter("userId"));
             userService.deleteById(id);
-
-            if (userService.getById(id) == null) {
-                writer.println("User with ID " + id + " successfully deleted.<br/>");
-            } else {
-                writer.println("Couldn't delete user.<br/>");
-            }
-        } else {
-            writer.println("No user with such ID in the data base.<br/>");
         }
+    }
 
-        writer.println("</body></html>");
+    private void sendGson(PrintWriter writer, Gson gson, User user) {
+        writer.print(gson.toJson(user));
+
+        List<Event> events = user.getEvents();
+
+        for (Event event : events) {
+            gson = new GsonBuilder().
+                    setPrettyPrinting().registerTypeAdapter(Event.class, new EventSerializer()).create();
+            writer.print(gson.toJson(event));
+        }
     }
 }

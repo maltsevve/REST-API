@@ -20,7 +20,7 @@ public class JavaIOFileRepositoryImpl implements FileRepository {
         Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
             session.save(file);
             transaction.commit();
@@ -42,7 +42,7 @@ public class JavaIOFileRepositoryImpl implements FileRepository {
         Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
             session.update(file);
             transaction.commit();
@@ -62,15 +62,11 @@ public class JavaIOFileRepositoryImpl implements FileRepository {
     public File getById(Long aLong) {
         File file = null;
         Session session = null;
-        Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
+            session = HibernateSessionFactory.getSession();
             file = session.get(File.class, aLong);
-            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             if (session != null && session.isOpen()) {
@@ -84,17 +80,12 @@ public class JavaIOFileRepositoryImpl implements FileRepository {
     @Override
     public List<File> getAll() {
         List<File> files = new ArrayList<>();
-
         Session session = null;
-        Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
+            session = HibernateSessionFactory.getSession();
             files = (List<File>) session.createQuery("FROM File f").list();
-            transaction.commit();
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
             e.printStackTrace();
         } finally {
             if (session != null && session.isOpen()) {
@@ -111,7 +102,7 @@ public class JavaIOFileRepositoryImpl implements FileRepository {
         Transaction transaction = null;
 
         try {
-            session = HibernateSessionFactory.getSessionFactory().openSession();
+            session = HibernateSessionFactory.getSession();
             transaction = session.beginTransaction();
             File file = session.load(File.class, aLong);
             session.delete(file);
