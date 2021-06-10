@@ -4,6 +4,7 @@ import com.maltsevve.restApi.model.User;
 import com.maltsevve.restApi.util.HibernateSessionFactory;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.jpa.QueryHints;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -84,7 +85,8 @@ public class JavaIOUserRepositoryImpl implements UserRepository {
 
         try {
             session = HibernateSessionFactory.getSession();
-            users = (List<User>) session.createQuery("FROM User u LEFT JOIN FETCH u.events").list();
+            users = (List<User>) session.createQuery("SELECT DISTINCT user FROM User user LEFT JOIN FETCH user.events").
+            setHint(QueryHints.HINT_PASS_DISTINCT_THROUGH, false).getResultList();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

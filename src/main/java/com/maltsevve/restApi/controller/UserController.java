@@ -62,6 +62,18 @@ public class UserController extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
+//        if (req.getParameter("userId") != null && req.getParameter("userId").matches("\\d+")) {
+//            User user = userService.getById(Long.valueOf(req.getParameter("userId")));
+//
+//            writer.print(new Gson().toJson(user));
+//        } else {
+//            List<User> users = userService.getAll();
+//
+//            for (User user : users) {
+//                writer.print(new Gson().toJson(user));
+//            }
+//        }
+
         Gson gson = new GsonBuilder().
                 setPrettyPrinting().registerTypeAdapter(User.class, new UserSerializer()).create();
 

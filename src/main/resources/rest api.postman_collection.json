@@ -14,20 +14,18 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/users?crud=save&name=John Doe",
+							"raw": "http://localhost:8088/api/v1/users?name=John Doe",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8088",
 							"path": [
+								"api",
+								"v1",
 								"users"
 							],
 							"query": [
-								{
-									"key": "crud",
-									"value": "save"
-								},
 								{
 									"key": "name",
 									"value": "John Doe"
@@ -43,20 +41,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/users?crud=getById&userId=1",
+							"raw": "http://localhost:8088/api/v1/users?userId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8088",
 							"path": [
+								"api",
+								"v1",
 								"users"
 							],
 							"query": [
-								{
-									"key": "crud",
-									"value": "getById"
-								},
 								{
 									"key": "userId",
 									"value": "1"
@@ -72,20 +68,18 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/users?crud=update&userId=1&name=Jane Doe",
+							"raw": "http://localhost:8088/api/v1/users?userId=1&name=Jane Doe",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8088",
 							"path": [
+								"api",
+								"v1",
 								"users"
 							],
 							"query": [
-								{
-									"key": "crud",
-									"value": "update"
-								},
 								{
 									"key": "userId",
 									"value": "1"
@@ -105,20 +99,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/users?crud=getAll",
+							"raw": "http://localhost:8088/api/v1/users",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8088",
 							"path": [
+								"api",
+								"v1",
 								"users"
-							],
-							"query": [
-								{
-									"key": "crud",
-									"value": "getAll"
-								}
 							]
 						}
 					},
@@ -130,20 +120,18 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/users?crud=delete&userId=1",
+							"raw": "http://localhost:8088/api/v1/users?userId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8088",
 							"path": [
+								"api",
+								"v1",
 								"users"
 							],
 							"query": [
-								{
-									"key": "crud",
-									"value": "delete"
-								},
 								{
 									"key": "userId",
 									"value": "1"
@@ -174,20 +162,18 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8088/files?crud=save&fileName=file1&userId=1",
+							"raw": "http://localhost:8088/api/v1/files?fileName=file1&userId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8088",
 							"path": [
+								"api",
+								"v1",
 								"files"
 							],
 							"query": [
-								{
-									"key": "crud",
-									"value": "save"
-								},
 								{
 									"key": "fileName",
 									"value": "file1"
@@ -207,20 +193,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/files?crud=getById&fileId=1",
+							"raw": "http://localhost:8088/api/v1/files?fileId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8088",
 							"path": [
+								"api",
+								"v1",
 								"files"
 							],
 							"query": [
-								{
-									"key": "crud",
-									"value": "getById"
-								},
 								{
 									"key": "fileId",
 									"value": "1"
@@ -246,20 +230,18 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:8088/files?crud=update&fileId=1&fileName=file2&userId=1",
+							"raw": "http://localhost:8088/api/v1/files?fileId=1&fileName=file2&userId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8088",
 							"path": [
+								"api",
+								"v1",
 								"files"
 							],
 							"query": [
-								{
-									"key": "crud",
-									"value": "update"
-								},
 								{
 									"key": "fileId",
 									"value": "1"
@@ -283,20 +265,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/files?crud=getAll",
+							"raw": "http://localhost:8088/api/v1/files",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8088",
 							"path": [
+								"api",
+								"v1",
 								"files"
-							],
-							"query": [
-								{
-									"key": "crud",
-									"value": "getAll"
-								}
 							]
 						}
 					},
@@ -308,20 +286,18 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/files?crud=delete&fileId=1&userId=1",
+							"raw": "http://localhost:8088/api/v1/files?fileId=1&userId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8088",
 							"path": [
+								"api",
+								"v1",
 								"files"
 							],
 							"query": [
-								{
-									"key": "crud",
-									"value": "delete"
-								},
 								{
 									"key": "fileId",
 									"value": "1"
@@ -346,20 +322,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/events?crud=getById&eventId=1",
+							"raw": "http://localhost:8088/api/v1/events?eventId=1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8088",
 							"path": [
+								"api",
+								"v1",
 								"events"
 							],
 							"query": [
-								{
-									"key": "crud",
-									"value": "getById"
-								},
 								{
 									"key": "eventId",
 									"value": "1"
@@ -375,20 +349,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/events?crud=getAll",
+							"raw": "http://localhost:8088/api/v1/events",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8088",
 							"path": [
+								"api",
+								"v1",
 								"events"
-							],
-							"query": [
-								{
-									"key": "crud",
-									"value": "getAll"
-								}
 							]
 						}
 					},

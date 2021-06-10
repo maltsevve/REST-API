@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS events
 (
     event_id int AUTO_INCREMENT NOT NULL PRIMARY KEY,
     event_time timestamp NOT NULL,
-    status varchar(255) NOT NULL,
+    status int NOT NULL,
     file_id int NOT NULL,
     user_id int NOT NULL,
 

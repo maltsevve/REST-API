@@ -49,7 +49,7 @@ public class FileController extends HttpServlet {
 
                 Event event = new Event();
                 event.setFile(file);
-                event.setStatus(Status.SAVED.toString());
+                event.setStatus(Status.SAVED);
                 event.setUser(userService.getById(Long.valueOf(req.getParameter("userId"))));
                 eventService.save(event);
 
@@ -86,7 +86,7 @@ public class FileController extends HttpServlet {
 
                     Event event = new Event();
                     event.setFile(file);
-                    event.setStatus(Status.UPDATED.toString());
+                    event.setStatus(Status.UPDATED);
                     event.setUser(userService.getById(Long.valueOf(req.getParameter("userId"))));
 
                     if (fileService.update(file).equals(file)) {
@@ -139,7 +139,7 @@ public class FileController extends HttpServlet {
                 if (!deletingFile.exists()) {
                     Event event = new Event();
                     event.setFile(file);
-                    event.setStatus(Status.DELETED.toString());
+                    event.setStatus(Status.DELETED);
                     event.setUser(userService.getById(Long.valueOf(req.getParameter("userId"))));
 
                     fileService.update(file);
