@@ -41,7 +41,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/api/v1/users?userId=1",
+							"raw": "http://localhost:8088/api/v1/users/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -50,13 +50,8 @@
 							"path": [
 								"api",
 								"v1",
-								"users"
-							],
-							"query": [
-								{
-									"key": "userId",
-									"value": "1"
-								}
+								"users",
+								"1"
 							]
 						}
 					},
@@ -193,7 +188,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/api/v1/files?fileId=1",
+							"raw": "http://localhost:8088/api/v1/files/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -202,13 +197,8 @@
 							"path": [
 								"api",
 								"v1",
-								"files"
-							],
-							"query": [
-								{
-									"key": "fileId",
-									"value": "1"
-								}
+								"files",
+								"1"
 							]
 						}
 					},
@@ -322,7 +312,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8088/api/v1/events?eventId=1",
+							"raw": "http://localhost:8088/api/v1/events/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -331,13 +321,8 @@
 							"path": [
 								"api",
 								"v1",
-								"events"
-							],
-							"query": [
-								{
-									"key": "eventId",
-									"value": "1"
-								}
+								"events",
+								"1"
 							]
 						}
 					},

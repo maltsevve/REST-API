@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/api/v1/users")
+@WebServlet("/api/v1/users/*")
 public class UserController extends HttpServlet {
     private final UserService userService = new UserService();
 
@@ -65,8 +65,10 @@ public class UserController extends HttpServlet {
         Gson gson = new GsonBuilder().
                 setPrettyPrinting().registerTypeAdapter(User.class, new UserSerializer()).create();
 
-        if (req.getParameter("userId") != null && req.getParameter("userId").matches("\\d+")) {
-            User user = userService.getById(Long.valueOf(req.getParameter("userId")));
+        String[] splitReqURI = req.getRequestURI().split("/");
+
+        if (splitReqURI[splitReqURI.length - 1].matches("\\d+")) {
+            User user = userService.getById(Long.valueOf(splitReqURI[splitReqURI.length - 1]));
 
             sendGson(writer, gson, user);
         } else {

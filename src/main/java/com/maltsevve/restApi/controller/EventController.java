@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/api/v1/events")
+@WebServlet("/api/v1/events/*")
 public class EventController extends HttpServlet {
     private final EventService eventService = new EventService();
 
@@ -26,18 +26,19 @@ public class EventController extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        if (req.getParameter("eventId") != null && req.getParameter("eventId").matches("\\d+")) {
-            Event event = eventService.getById(Long.valueOf(req.getParameter("eventId")));
+        String[] splitReqURI = req.getRequestURI().split("/");
 
-            Gson gson = new GsonBuilder().
-                    setPrettyPrinting().registerTypeAdapter(Event.class, new EventSerializer()).create();
+        Gson gson = new GsonBuilder().
+                setPrettyPrinting().registerTypeAdapter(Event.class, new EventSerializer()).create();
+
+        if (splitReqURI[splitReqURI.length - 1].matches("\\d+")) {
+            Event event = eventService.getById(Long.valueOf(splitReqURI[splitReqURI.length - 1]));
+
             writer.print(gson.toJson(event));
         } else {
             List<Event> events = eventService.getAll();
 
             for (Event event : events) {
-                Gson gson = new GsonBuilder().
-                        setPrettyPrinting().registerTypeAdapter(Event.class, new EventSerializer()).create();
                 writer.print(gson.toJson(event));
             }
         }

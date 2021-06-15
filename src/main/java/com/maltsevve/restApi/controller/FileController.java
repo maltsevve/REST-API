@@ -20,7 +20,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet("/api/v1/files")
+@WebServlet("/api/v1/files/*")
 public class FileController extends HttpServlet {
     private final static String SAVE_DIR = "C:/Users/Victor/IdeaProjects/REST-API/src/main/resources/uploads/";
     private final static int BUFFER_SIZE = 4096;
@@ -106,8 +106,10 @@ public class FileController extends HttpServlet {
 
         PrintWriter writer = resp.getWriter();
 
-        if (req.getParameter("fileId") != null && req.getParameter("fileId").matches("\\d+")) {
-            File file = fileService.getById(Long.valueOf(req.getParameter("fileId")));
+        String[] splitReqURI = req.getRequestURI().split("/");
+
+        if (splitReqURI[splitReqURI.length - 1].matches("\\d+")) {
+            File file = fileService.getById(Long.valueOf(splitReqURI[splitReqURI.length - 1]));
 
             writer.print(new Gson().toJson(file));
         } else {
