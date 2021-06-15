@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/REST-API.jar --port $PORT target/*.war
+web: java -jar target/REST-API.jar
