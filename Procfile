@@ -1,1 +1,1 @@
-web: java -jar target/REST-API.jar
+web: java -jar target/REST-API.jar --port $PORT target/*.war
