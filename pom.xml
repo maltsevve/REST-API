@@ -96,6 +96,9 @@
             <user>bbc9ba209141b8</user>
             <password>088d21d0</password>
             <url>jdbc:mysql://bbc9ba209141b8:088d21d0@us-cdbr-east-04.cleardb.com/heroku_e4bf1332cdc00a1?reconnect=true</url>
+            <locations>
+              <location>filesystem:src/main/resources/flyway</location>
+            </locations>
           </configuration>
         </plugin>
         <!-- https://mvnrepository.com/artifact/org.apache.tomcat.maven/tomcat7-maven-plugin -->
