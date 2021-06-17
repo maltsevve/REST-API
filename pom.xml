@@ -93,9 +93,9 @@
           <artifactId>flyway-maven-plugin</artifactId>
           <version>7.7.2</version>
           <configuration>
-            <user>mysql</user>
-            <password>q1w2e3r4</password>
-            <url>jdbc:mysql://localhost:3306/mysqldemo</url>
+            <user>bbc9ba209141b8</user>
+            <password>088d21d0</password>
+            <url>jdbc:mysql://bbc9ba209141b8:088d21d0@us-cdbr-east-04.cleardb.com/heroku_e4bf1332cdc00a1?reconnect=true</url>
           </configuration>
         </plugin>
         <!-- https://mvnrepository.com/artifact/org.apache.tomcat.maven/tomcat7-maven-plugin -->
@@ -124,6 +124,15 @@
             <source>${maven.compiler.source}</source>
             <target>${maven.compiler.target}</target>
             <encoding>${project.build.sourceEncoding}</encoding>
+          </configuration>
+        </plugin>
+        <!-- https://mvnrepository.com/artifact/com.heroku.sdk/heroku-maven-plugin -->
+        <plugin>
+          <groupId>com.heroku.sdk</groupId>
+          <artifactId>heroku-maven-plugin</artifactId>
+          <version>3.0.4</version>
+          <configuration>
+            <appName>maltsevve-rest-api</appName>
           </configuration>
         </plugin>
         <plugin>
